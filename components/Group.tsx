@@ -14,5 +14,9 @@ const Group = (props: GroupProps) => {
 export default Group;
 
 const styles = StyleSheet.create({
-  container: {}
+  container: {
+    height: 270,
+    width: 170,
+    backgroundColor: "skyblue"
+  }
 });

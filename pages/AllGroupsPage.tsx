@@ -1,12 +1,20 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import Group from '../components/Group';
 
 interface AllGroupsPageProps {}
 
 const AllGroupsPage = (props: AllGroupsPageProps) => {
   return (
     <View style={styles.container}>
-      <Text>AllGroupsPage</Text>
+      <View style={styles.groupsRow}>
+      <Group/>
+      <Group/>
+      </View>
+      <View style={styles.groupsRow}>
+      <Group/>
+      <Group/>
+      </View>
     </View>
   );
 };
@@ -17,7 +25,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly'
       },
+    groupsRow: {
+      flexDirection: "row",
+      justifyContent: "space-around"
+    }
 });
