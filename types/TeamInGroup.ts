@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
 
-export interface Team {
+export interface TeamInGroup {
   teamId: number;
   name: string;
   flag: ImageSourcePropType;
