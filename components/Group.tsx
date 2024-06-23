@@ -1,13 +1,28 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, ImageSourcePropType } from 'react-native';
+import TeamGroupItem from './TeamGroupItem';
 
-interface GroupProps {}
+interface Team {
+  id: string;
+  name: string;
+  flag: ImageSourcePropType;
+}
+interface GroupProps {
+  name: string;
+  teams: Team[];
+}
 
-const Group = (props: GroupProps) => {
+const Group = ({name, teams}: GroupProps) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={require("../assets/groupsBackground.jpg")} style={styles.image}>
-      <Text style={styles.titleText}>GRUPO A</Text>
+      <ImageBackground
+        source={require("../assets/groupsBackground.jpg")}
+        style={styles.image}
+      >
+        <Text style={styles.titleText}>{name}</Text>
+        {teams.map((team) => (
+          <TeamGroupItem key={team.id} name={team.name} flag={team.flag} />
+        ))}
       </ImageBackground>
     </View>
   );
@@ -19,7 +34,6 @@ const styles = StyleSheet.create({
   container: {
     height: 270,
     width: 170,
-    backgroundColor: "skyblue"
   },
   image: {
     flex: 1,
@@ -28,10 +42,10 @@ const styles = StyleSheet.create({
   titleText: {
     color: "white",
     padding: 10,
-    fontSize: 20,
-    fontWeight: '500',
+    fontSize: 24,
+    fontWeight: '600',
     textShadowColor: "black",
-    textShadowOffset: {height: 8, width: 0},
+    textShadowOffset: {height: 4, width: 0},
     textShadowRadius: 10,
   },
 });
