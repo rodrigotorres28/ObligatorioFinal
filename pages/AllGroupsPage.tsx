@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import Group from '../components/Group';
+import GroupPreview from '../components/GroupPreview';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types/MainStackTypes';
+import { useSelector } from 'react-redux';
+import { RootState } from '../state/store';
+import { Group } from '../types/Group';
 
 const groupsOfTeams = [
   {
@@ -50,20 +53,24 @@ const groupsOfTeams = [
 type AllGroupsPageProps = NativeStackScreenProps<StackParamList, "AllGroupsPage">
 
 const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
+  const groupA: Group = useSelector((state: RootState) => state.groups.groupA);
+  const groupB: Group = useSelector((state: RootState) => state.groups.groupB);
+  const groupC: Group = useSelector((state: RootState) => state.groups.groupC);
+  const groupD: Group = useSelector((state: RootState) => state.groups.groupD);
 
-  const navigateToGroupPage = (groupId: string) => {
+  const navigateToGroupPage = (groupId: string) => { 
     switch(groupId) {
       case "1":
-        navigation.navigate("GroupAPage");
+        navigation.navigate("GroupPage", {group: groupA});
         break;
       case "2":
-        navigation.navigate("GroupBPage");
+        navigation.navigate("GroupPage", {group: groupB});
         break;
       case "3":
-        navigation.navigate("GroupCPage");
+        navigation.navigate("GroupPage", {group: groupC});
         break;
       case "4":
-        navigation.navigate("GroupDPage");
+        navigation.navigate("GroupPage", {group: groupD});
         break;
     }
   };
@@ -74,7 +81,7 @@ const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
         data={groupsOfTeams}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigateToGroupPage(item.id)}>
-            <Group name={item.groupName} teams={item.teams} />
+            <GroupPreview name={item.groupName} teams={item.teams} />
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id}
@@ -91,7 +98,6 @@ export default AllGroupsPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   groupsRow: {
     justifyContent: 'space-evenly',

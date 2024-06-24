@@ -3,10 +3,7 @@ import * as React from "react";
 
 import { MainStack } from "../types/MainStackTypes";
 import AllGroupsPage from "../pages/AllGroupsPage";
-import GroupAPage from "../pages/GroupAPage";
-import GroupBPage from "../pages/GroupBPage";
-import GroupCPage from "../pages/GroupCPage";
-import GroupDPage from "../pages/GroupDPage";
+import GroupPage from "../pages/GroupPage";
 
 interface MainStackNavigationProps {}
 
@@ -19,20 +16,8 @@ const MainStackNavigation = (props: MainStackNavigationProps) => {
           component={AllGroupsPage}
         />
         <MainStack.Screen
-          name="GroupAPage"
-          component={GroupAPage}
-        />
-        <MainStack.Screen
-          name="GroupBPage"
-          component={GroupBPage}
-        />
-        <MainStack.Screen
-          name="GroupCPage"
-          component={GroupCPage}
-        />
-        <MainStack.Screen
-          name="GroupDPage"
-          component={GroupDPage}
+          name="GroupPage"
+          component={GroupPage}
         />
       </MainStack.Navigator>
     </NavigationContainer>

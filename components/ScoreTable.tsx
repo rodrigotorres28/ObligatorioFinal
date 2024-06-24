@@ -27,8 +27,8 @@ const ScoreTable = ({ teams }: ScoreTableProps) => {
       <View style={styles.header}>
         <Text style={styles.headerCell}>FLAG</Text>
         <Text style={styles.headerCellName}>NAME</Text>
-        <Text style={styles.headerCell}>WINS</Text>
-        <Text style={styles.headerCell}>TIES</Text>
+        <Text style={styles.headerCell}>W</Text>
+        <Text style={styles.headerCell}>T</Text>
         <Text style={styles.headerCell}>GF</Text>
         <Text style={styles.headerCell}>GA</Text>
         <Text style={styles.headerCell}>GD</Text>

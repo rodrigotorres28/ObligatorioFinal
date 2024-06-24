@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TeamInGroup } from "../types/TeamInGroup"
-
-interface Group {
-  groupId: number;
-  teams: { [teamName: string]: TeamInGroup };
-}
+import { Group } from '../types/Group';
 
 interface GroupsState {
   [groupName: string]: Group;
@@ -19,6 +14,14 @@ const initialState: GroupsState = {
       teamC: { teamId: 3, name: 'Chile', flag: require('../assets/flags/cl.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
       teamD: { teamId: 4, name: 'Canada', flag: require('../assets/flags/ca.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
     },
+    matches: {
+      matchA: {team1Id: 1, team2Id: 4, team1Goals: -1, team2Goals: -1},
+      matchB: {team1Id: 2, team2Id: 3, team1Goals: -1, team2Goals: -1},
+      matchC: {team1Id: 3, team2Id: 1, team1Goals: -1, team2Goals: -1},
+      matchD: {team1Id: 2, team2Id: 4, team1Goals: -1, team2Goals: -1},
+      matchE: {team1Id: 1, team2Id: 2, team1Goals: -1, team2Goals: -1},
+      matchF: {team1Id: 4, team2Id: 3, team1Goals: -1, team2Goals: -1},
+    },
   },
   groupB: {
     groupId: 2,
@@ -27,6 +30,14 @@ const initialState: GroupsState = {
       teamB: { teamId: 6, name: 'Ecuador', flag: require('../assets/flags/ec.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
       teamC: { teamId: 7, name: 'Venezuela', flag: require('../assets/flags/ve.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
       teamD: { teamId: 8, name: 'Jamaica', flag: require('../assets/flags/jm.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
+    },
+    matches: {
+      matchA: {team1Id: 5, team2Id: 8, team1Goals: -1, team2Goals: -1},
+      matchB: {team1Id: 6, team2Id: 7, team1Goals: -1, team2Goals: -1},
+      matchC: {team1Id: 7, team2Id: 5, team1Goals: -1, team2Goals: -1},
+      matchD: {team1Id: 6, team2Id: 8, team1Goals: -1, team2Goals: -1},
+      matchE: {team1Id: 5, team2Id: 6, team1Goals: -1, team2Goals: -1},
+      matchF: {team1Id: 8, team2Id: 7, team1Goals: -1, team2Goals: -1},
     },
   },
   groupC: {
@@ -37,6 +48,14 @@ const initialState: GroupsState = {
       teamC: { teamId: 11, name: 'Panama', flag: require('../assets/flags/pa.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
       teamD: { teamId: 12, name: 'Bolivia', flag: require('../assets/flags/bo.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
     },
+    matches: {
+      matchA: {team1Id: 9, team2Id: 12, team1Goals: -1, team2Goals: -1},
+      matchB: {team1Id: 10, team2Id: 11, team1Goals: -1, team2Goals: -1},
+      matchC: {team1Id: 11, team2Id: 9, team1Goals: -1, team2Goals: -1},
+      matchD: {team1Id: 10, team2Id: 12, team1Goals: -1, team2Goals: -1},
+      matchE: {team1Id: 9, team2Id: 10, team1Goals: -1, team2Goals: -1},
+      matchF: {team1Id: 12, team2Id: 11, team1Goals: -1, team2Goals: -1},
+    },
   },
   groupD: {
     groupId: 4,
@@ -45,6 +64,14 @@ const initialState: GroupsState = {
       teamB: { teamId: 14, name: 'Colombia', flag: require('../assets/flags/co.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
       teamC: { teamId: 15, name: 'Paraguay', flag: require('../assets/flags/py.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
       teamD: { teamId: 16, name: 'Costa Rica', flag: require('../assets/flags/cr.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
+    },
+    matches: {
+      matchA: {team1Id: 13, team2Id: 16, team1Goals: -1, team2Goals: -1},
+      matchB: {team1Id: 14, team2Id: 15, team1Goals: -1, team2Goals: -1},
+      matchC: {team1Id: 15, team2Id: 13, team1Goals: -1, team2Goals: -1},
+      matchD: {team1Id: 14, team2Id: 16, team1Goals: -1, team2Goals: -1},
+      matchE: {team1Id: 13, team2Id: 14, team1Goals: -1, team2Goals: -1},
+      matchF: {team1Id: 16, team2Id: 15, team1Goals: -1, team2Goals: -1},
     },
   },
 };

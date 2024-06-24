@@ -7,12 +7,12 @@ interface Team {
   name: string;
   flag: ImageSourcePropType;
 }
-interface GroupProps {
+interface GroupPreviewProps {
   name: string;
   teams: Team[];
 }
 
-const Group = ({name, teams}: GroupProps) => {
+const GroupPreview = ({name, teams}: GroupPreviewProps) => {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -28,12 +28,14 @@ const Group = ({name, teams}: GroupProps) => {
   );
 };
 
-export default Group;
+export default GroupPreview;
 
 const styles = StyleSheet.create({
   container: {
     height: 270,
     width: 170,
+    borderRadius: 15,
+    overflow: 'hidden',
   },
   image: {
     flex: 1,
