@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Group } from '../types/Group';
+import { TeamInGroup } from '../types/TeamInGroup';
 
 interface GroupsState {
   [groupName: string]: Group;
 }
+
+const unplayedMatch = -1;
 
 const initialState: GroupsState = {
   groupA: {
@@ -15,12 +18,12 @@ const initialState: GroupsState = {
       teamD: { teamId: 4, name: 'Canada', flag: require('../assets/flags/ca.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
     },
     matches: {
-      matchA: {team1Id: 1, team2Id: 4, team1Goals: -1, team2Goals: -1},
-      matchB: {team1Id: 2, team2Id: 3, team1Goals: -1, team2Goals: -1},
-      matchC: {team1Id: 3, team2Id: 1, team1Goals: -1, team2Goals: -1},
-      matchD: {team1Id: 2, team2Id: 4, team1Goals: -1, team2Goals: -1},
-      matchE: {team1Id: 1, team2Id: 2, team1Goals: -1, team2Goals: -1},
-      matchF: {team1Id: 4, team2Id: 3, team1Goals: -1, team2Goals: -1},
+      matchA: {team1Id: 1, team2Id: 4, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchB: {team1Id: 2, team2Id: 3, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchC: {team1Id: 3, team2Id: 1, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchD: {team1Id: 2, team2Id: 4, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchE: {team1Id: 1, team2Id: 2, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchF: {team1Id: 4, team2Id: 3, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
     },
   },
   groupB: {
@@ -32,12 +35,12 @@ const initialState: GroupsState = {
       teamD: { teamId: 8, name: 'Jamaica', flag: require('../assets/flags/jm.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
     },
     matches: {
-      matchA: {team1Id: 5, team2Id: 8, team1Goals: -1, team2Goals: -1},
-      matchB: {team1Id: 6, team2Id: 7, team1Goals: -1, team2Goals: -1},
-      matchC: {team1Id: 7, team2Id: 5, team1Goals: -1, team2Goals: -1},
-      matchD: {team1Id: 6, team2Id: 8, team1Goals: -1, team2Goals: -1},
-      matchE: {team1Id: 5, team2Id: 6, team1Goals: -1, team2Goals: -1},
-      matchF: {team1Id: 8, team2Id: 7, team1Goals: -1, team2Goals: -1},
+      matchA: {team1Id: 5, team2Id: 8, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchB: {team1Id: 6, team2Id: 7, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchC: {team1Id: 7, team2Id: 5, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchD: {team1Id: 6, team2Id: 8, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchE: {team1Id: 5, team2Id: 6, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchF: {team1Id: 8, team2Id: 7, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
     },
   },
   groupC: {
@@ -49,12 +52,12 @@ const initialState: GroupsState = {
       teamD: { teamId: 12, name: 'Bolivia', flag: require('../assets/flags/bo.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
     },
     matches: {
-      matchA: {team1Id: 9, team2Id: 12, team1Goals: -1, team2Goals: -1},
-      matchB: {team1Id: 10, team2Id: 11, team1Goals: -1, team2Goals: -1},
-      matchC: {team1Id: 11, team2Id: 9, team1Goals: -1, team2Goals: -1},
-      matchD: {team1Id: 10, team2Id: 12, team1Goals: -1, team2Goals: -1},
-      matchE: {team1Id: 9, team2Id: 10, team1Goals: -1, team2Goals: -1},
-      matchF: {team1Id: 12, team2Id: 11, team1Goals: -1, team2Goals: -1},
+      matchA: {team1Id: 9, team2Id: 12, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchB: {team1Id: 10, team2Id: 11, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchC: {team1Id: 11, team2Id: 9, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchD: {team1Id: 10, team2Id: 12, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchE: {team1Id: 9, team2Id: 10, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchF: {team1Id: 12, team2Id: 11, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
     },
   },
   groupD: {
@@ -66,33 +69,62 @@ const initialState: GroupsState = {
       teamD: { teamId: 16, name: 'Costa Rica', flag: require('../assets/flags/cr.png'), goalsFor: 0, goalsAgainst: 0, goalDifference: 0, wins: 0, ties: 0, points: 0 },
     },
     matches: {
-      matchA: {team1Id: 13, team2Id: 16, team1Goals: -1, team2Goals: -1},
-      matchB: {team1Id: 14, team2Id: 15, team1Goals: -1, team2Goals: -1},
-      matchC: {team1Id: 15, team2Id: 13, team1Goals: -1, team2Goals: -1},
-      matchD: {team1Id: 14, team2Id: 16, team1Goals: -1, team2Goals: -1},
-      matchE: {team1Id: 13, team2Id: 14, team1Goals: -1, team2Goals: -1},
-      matchF: {team1Id: 16, team2Id: 15, team1Goals: -1, team2Goals: -1},
+      matchA: {team1Id: 13, team2Id: 16, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchB: {team1Id: 14, team2Id: 15, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchC: {team1Id: 15, team2Id: 13, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchD: {team1Id: 14, team2Id: 16, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchE: {team1Id: 13, team2Id: 14, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
+      matchF: {team1Id: 16, team2Id: 15, team1Goals: unplayedMatch, team2Goals: unplayedMatch},
     },
   },
+};
+
+const updateTeamStats = (team: TeamInGroup, goalsFor: number, goalsAgainst: number, isNewMatch: boolean) => {
+  if (isNewMatch) {
+    team.goalsFor += goalsFor;
+    team.goalsAgainst += goalsAgainst;
+    team.goalDifference += goalsFor - goalsAgainst;
+    team.points += goalsFor > goalsAgainst ? 3 : goalsFor === goalsAgainst ? 1 : 0;
+    if (goalsFor > goalsAgainst) team.wins += 1;
+    if (goalsFor === goalsAgainst) team.ties += 1;
+  } else {
+    team.goalsFor -= goalsFor;
+    team.goalsAgainst -= goalsAgainst;
+    team.goalDifference -= goalsFor - goalsAgainst;
+    team.points -= goalsFor > goalsAgainst ? 3 : goalsFor === goalsAgainst ? 1 : 0;
+    if (goalsFor > goalsAgainst) team.wins -= 1;
+    if (goalsFor === goalsAgainst) team.ties -= 1;
+  }
 };
 
 const groupsSlice = createSlice({
   name: 'groups',
   initialState,
   reducers: {
-    updateTeam(state, action: PayloadAction<{ groupName: string; teamName: string; goalsFor: number; goalsAgainst: number; wins: number; ties: number; }>) {
-      const { groupName, teamName, goalsFor, goalsAgainst, wins, ties } = action.payload;
-      const team = state[groupName].teams[teamName];
-      team.goalsFor = goalsFor;
-      team.goalsAgainst = goalsAgainst;
-      team.goalDifference = goalsFor - goalsAgainst;
-      team.wins = wins;
-      team.ties = ties;
-      team.points = wins * 3 + ties;
+    updateMatch(state, action: PayloadAction<{ groupName: string; matchName: string; team1Goals: number; team2Goals: number }>) {
+      const { groupName, matchName, team1Goals, team2Goals } = action.payload;
+      const group = state[groupName];
+      const match = group.matches[matchName];
+
+      const team1 = Object.values(group.teams).find(team => team.teamId === match.team1Id);
+      const team2 = Object.values(group.teams).find(team => team.teamId === match.team2Id);
+
+      const isNewMatch = match.team1Goals === unplayedMatch || match.team2Goals === unplayedMatch;
+
+      if (!isNewMatch) {
+        updateTeamStats(team1!, match.team1Goals, match.team2Goals, false);
+        updateTeamStats(team2!, match.team2Goals, match.team1Goals, false);
+      }
+
+      match.team1Goals = team1Goals;
+      match.team2Goals = team2Goals;
+
+      updateTeamStats(team1!, team1Goals, team2Goals, true);
+      updateTeamStats(team2!, team2Goals, team1Goals, true);
     },
   },
 });
 
-export const { updateTeam } = groupsSlice.actions;
+export const { updateMatch } = groupsSlice.actions;
 
 export default groupsSlice.reducer;

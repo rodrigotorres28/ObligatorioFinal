@@ -1,12 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Group } from "../types/Group";
 
 export type StackParamList = {
   AllGroupsPage : undefined;
-  GroupPage : {group : Group};
-  GroupBPage : undefined;
-  GroupCPage : undefined;
-  GroupDPage : undefined;
+  GroupPage : { groupName: string };
 };
 
 export const MainStack = createNativeStackNavigator<StackParamList>();

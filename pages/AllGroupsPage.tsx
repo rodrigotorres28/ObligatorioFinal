@@ -3,9 +3,6 @@ import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import GroupPreview from '../components/GroupPreview';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types/MainStackTypes';
-import { useSelector } from 'react-redux';
-import { RootState } from '../state/store';
-import { Group } from '../types/Group';
 
 const groupsOfTeams = [
   {
@@ -53,26 +50,9 @@ const groupsOfTeams = [
 type AllGroupsPageProps = NativeStackScreenProps<StackParamList, "AllGroupsPage">
 
 const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
-  const groupA: Group = useSelector((state: RootState) => state.groups.groupA);
-  const groupB: Group = useSelector((state: RootState) => state.groups.groupB);
-  const groupC: Group = useSelector((state: RootState) => state.groups.groupC);
-  const groupD: Group = useSelector((state: RootState) => state.groups.groupD);
 
   const navigateToGroupPage = (groupId: string) => { 
-    switch(groupId) {
-      case "1":
-        navigation.navigate("GroupPage", {group: groupA});
-        break;
-      case "2":
-        navigation.navigate("GroupPage", {group: groupB});
-        break;
-      case "3":
-        navigation.navigate("GroupPage", {group: groupC});
-        break;
-      case "4":
-        navigation.navigate("GroupPage", {group: groupD});
-        break;
-    }
+    navigation.navigate('GroupPage', { groupName: 'groupA' });
   };
 
   return (
