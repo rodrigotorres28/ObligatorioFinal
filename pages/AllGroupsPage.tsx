@@ -51,8 +51,21 @@ type AllGroupsPageProps = NativeStackScreenProps<StackParamList, "AllGroupsPage"
 
 const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
 
-  const navigateToGroupPage = (groupId: string) => { 
-    navigation.navigate('GroupPage', { groupName: 'groupA' });
+  const navigateToGroupPage = (groupId: string) => {
+    switch (groupId) {
+      case "1":
+        navigation.navigate('GroupPage', { groupName: 'groupA' });
+        break;
+      case "2":
+        navigation.navigate('GroupPage', { groupName: 'groupB' });
+        break;
+      case "3":
+        navigation.navigate('GroupPage', { groupName: 'groupC' });
+        break;
+      case "4":
+        navigation.navigate('GroupPage', { groupName: 'groupD' });
+        break;
+    }
   };
 
   return (

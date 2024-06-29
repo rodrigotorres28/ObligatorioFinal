@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { updateMatch } from "../state/GroupsSlice";
 import { useState } from "react";
+import MatchPrediction from "../components/MatchPrediction";
 
 type GroupPageProps = NativeStackScreenProps<StackParamList, "GroupPage">;
 
@@ -53,22 +54,17 @@ const GroupPage = ({ navigation, route }: GroupPageProps) => {
             <MatchCard key={index} groupTeams={teamsArray} match={match} />
           </TouchableOpacity>
         ))}
-        <Button title="aaaa" onPress={handleTest} />
+        <Button title="TEST" onPress={handleTest} />
       </View>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
-        }}
-      >
+        }}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Test</Text>
-          <Button
-            title="Close"
-            onPress={() => setModalVisible(!modalVisible)}
-          />
+          <MatchPrediction />
         </View>
       </Modal>
     </View>
