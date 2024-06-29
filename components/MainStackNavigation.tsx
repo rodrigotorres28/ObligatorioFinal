@@ -14,10 +14,12 @@ const MainStackNavigation = (props: MainStackNavigationProps) => {
         <MainStack.Screen
           name="AllGroupsPage"
           component={AllGroupsPage}
+          options={{headerTitle: "Copa America Predictions", headerTitleAlign: "center"}}
         />
         <MainStack.Screen
           name="GroupPage"
           component={GroupPage}
+          options={{headerTitle: ""}}
         />
       </MainStack.Navigator>
     </NavigationContainer>

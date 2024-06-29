@@ -9,7 +9,7 @@ interface MatchCardProps {
     match: Match;
 }
 
-const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
+const MatchCard = ({ match }: MatchCardProps) => {
     const goalsLeft = match.team1Goals;
     const goalsRight = match.team2Goals;
 
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: "row",
         alignItems: "center",
-        borderWidth: 1,
-        borderRadius: 5,
+        borderWidth: 2,
+        borderRadius: 12,
         borderColor: "black",
         backgroundColor: "#0565e3",
         marginVertical: 5,

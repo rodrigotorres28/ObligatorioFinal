@@ -8,7 +8,7 @@ interface ScoreTableProps {
   standings: Standings[];
 }
 
-const ScoreTable: React.FC<ScoreTableProps> = ({ standings }) => {
+const ScoreTable = ({ standings }: ScoreTableProps) => {
   const teams = useSelector((state: RootState) => state.teams);
 
   const renderItem = ({ item }: { item: Standings }) => {
