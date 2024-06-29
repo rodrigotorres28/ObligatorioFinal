@@ -1,14 +1,20 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 import AddMultipleButton from './AddMultipleButton';
 import { useState } from 'react';
 import LargeHorizontalButton from './LargeHorizontalButton';
 
-interface MatchPredictionProps {}
+interface MatchPredictionProps {
+    onSubmit: (team1Goals: number, team2Goals: number) => void;
+    team1Flag: ImageSourcePropType;
+    team2Flag: ImageSourcePropType;
+    team1goals: number;
+    team2goals: number;
+}
 
-const MatchPrediction = (props: MatchPredictionProps) => {
-    const [goalsTeam1, setgoalsTeam1] = useState(0)
-    const [goalsTeam2, setgoalsTeam2] = useState(0)
+const MatchPrediction = ({ onSubmit, team1Flag, team2Flag, team1goals, team2goals }: MatchPredictionProps) => {
+    const [goalsTeam1, setgoalsTeam1] = useState(team1goals !== -1 ? team1goals : 0)
+    const [goalsTeam2, setgoalsTeam2] = useState(team2goals !== -1 ? team2goals : 0)
 
     const handleAddGoal1 = () => {
         if (goalsTeam1 < 99) {
@@ -36,7 +42,7 @@ const MatchPrediction = (props: MatchPredictionProps) => {
     <View style={styles.container}>
         <Text style={styles.title}>MATCH SCORE</Text>
       <View style={styles.teamContainer}>
-        <Image style={styles.flagImage} source={require("../assets/flags/ar.png")} resizeMode='contain'/>
+        <Image style={styles.flagImage} source={team1Flag} resizeMode='contain'/>
         <AddMultipleButton
           onAdd={handleAddGoal1}
           onRemove={handleRemoveGoal1}
@@ -44,7 +50,7 @@ const MatchPrediction = (props: MatchPredictionProps) => {
         />
       </View>
       <View style={styles.teamContainer}>
-      <Image style={styles.flagImage} source={require("../assets/flags/ca.png")} resizeMode='contain' />
+      <Image style={styles.flagImage} source={team2Flag} resizeMode='contain' />
         <AddMultipleButton
           onAdd={handleAddGoal2}
           onRemove={handleRemoveGoal2}
@@ -56,6 +62,7 @@ const MatchPrediction = (props: MatchPredictionProps) => {
           buttonColor="#044fc7"
           text="PREDICT"
           textColor={"white"}
+          onPress={() => onSubmit(goalsTeam1, goalsTeam2)}
         />
       </View>
     </View>
