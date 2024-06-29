@@ -1,8 +1,10 @@
 import { Match } from "./Match";
-import { TeamInGroup } from "./TeamInGroup";
+import { Standings } from "./Standings";
 
 export interface Group {
-    groupId: number;
-    teams: { [teamName: string]: TeamInGroup };
-    matches: { [matchName: string]: Match};
-  }
+  groupId: number;
+  displayName: string;
+  teams: number[],
+  stats: { [teamId: number]: Standings };
+  matches: { [matchName: string]: Match };
+}

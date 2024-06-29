@@ -1,23 +1,25 @@
 import * as React from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { TeamInGroup } from "../types/TeamInGroup";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 import { Match } from "../types/Match";
 
 interface MatchCardProps {
-    groupTeams: TeamInGroup[];
-    match: Match
+    match: Match;
 }
 
-const MatchCard = ({ groupTeams, match }: MatchCardProps) => {
+const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
     const goalsLeft = match.team1Goals;
     const goalsRight = match.team2Goals;
 
-    const team1 = groupTeams.find(team => team.teamId === match.team1Id);
-    const team2 = groupTeams.find(team => team.teamId === match.team2Id);
+    const teams = useSelector((state: RootState) => state.teams);
+
+    const team1 = teams[match.team1Id];
+    const team2 = teams[match.team2Id];
 
     if (!team1 || !team2) {
-        console.error("Team id from a match not found on its group");
+        console.error("Team id from a match not found in the Redux state");
         return null;
     }
 
@@ -25,6 +27,7 @@ const MatchCard = ({ groupTeams, match }: MatchCardProps) => {
         const team1Valid = match.team1Goals >= 0 && match.team1Goals <= 99;
         const team2Valid = match.team2Goals >= 0 && match.team2Goals <= 99;
         return team1Valid && team2Valid;
+        // Also -1 is the goals value for an unplayed match
     };
 
     const isMatchValid = verifyMatch();
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         alignItems: "center",
         width: 135,
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
     },
     middle: {
         flexDirection: "row",

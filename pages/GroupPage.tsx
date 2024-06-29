@@ -1,21 +1,14 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
+import { Text, View, StyleSheet, Button, TouchableOpacity, Modal } from "react-native";
 import { StackParamList } from "../types/MainStackTypes";
 import ScoreTable from "../components/ScoreTable";
 import MatchCard from "../components/MatchCard";
+import MatchPrediction from "../components/MatchPrediction";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { updateMatch } from "../state/GroupsSlice";
 import { useState } from "react";
-import MatchPrediction from "../components/MatchPrediction";
 
 type GroupPageProps = NativeStackScreenProps<StackParamList, "GroupPage">;
 
@@ -24,20 +17,13 @@ const GroupPage = ({ navigation, route }: GroupPageProps) => {
   const { groupName } = route.params;
   const group = useSelector((state: RootState) => state.groups[groupName]);
 
-  const teamsArray = Object.values(group.teams);
+  const standingsArray = Object.values(group.stats);
   const matchesArray = Object.values(group.matches);
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleTest = () => {
-    dispatch(
-      updateMatch({
-        groupName: groupName,
-        matchName: "matchA",
-        team1Goals: 3,
-        team2Goals: 1,
-      })
-    );
+  const handleUpdateMatch = (matchName: string, team1Goals: number, team2Goals: number) => {
+    dispatch(updateMatch({ groupName, matchName, team1Goals, team2Goals }));
   };
 
   const handleMatchPress = () => {
@@ -46,23 +32,22 @@ const GroupPage = ({ navigation, route }: GroupPageProps) => {
 
   return (
     <View style={styles.container}>
-      <ScoreTable teams={teamsArray} />
+      <ScoreTable standings={standingsArray} />
       <View style={styles.matches}>
         <Text style={styles.title}>MATCHES</Text>
         {matchesArray.map((match, index) => (
-          <TouchableOpacity key={index} onPress={handleMatchPress}>
-            <MatchCard key={index} groupTeams={teamsArray} match={match} />
+          <TouchableOpacity key={index} onPress={() => handleUpdateMatch(match.matchName, 3, 1)}>
+            <MatchCard key={index} match={match} />
           </TouchableOpacity>
         ))}
-        <Button title="TEST" onPress={handleTest} />
+        <Button title="TEST" onPress={() => handleUpdateMatch("matchA", 3, 1)} />
       </View>
       <Modal
         animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
+        onRequestClose={() => setModalVisible(false)}
+      >
         <View style={styles.modalView}>
           <MatchPrediction />
         </View>
@@ -74,12 +59,17 @@ const GroupPage = ({ navigation, route }: GroupPageProps) => {
 export default GroupPage;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
   title: {
     fontSize: 36,
     fontWeight: "600",
+    marginBottom: 10,
   },
   matches: {
+    flex: 1,
     alignItems: "center",
   },
   modalView: {
@@ -87,11 +77,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalText: {
-    fontSize: 24,
-    backgroundColor: "white",
-    padding: 20,
-    borderRadius: 10,
   },
 });

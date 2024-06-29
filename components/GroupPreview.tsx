@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, ImageBackground, ImageSourcePropType } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import TeamGroupItem from './TeamGroupItem';
+import { Team } from '../types/Team';
 
-interface Team {
-  id: string;
-  name: string;
-  flag: ImageSourcePropType;
-}
 interface GroupPreviewProps {
   name: string;
   teams: Team[];
@@ -21,7 +17,7 @@ const GroupPreview = ({name, teams}: GroupPreviewProps) => {
       >
         <Text style={styles.titleText}>{name}</Text>
         {teams.map((team) => (
-          <TeamGroupItem key={team.id} name={team.name} flag={team.flag} />
+          <TeamGroupItem key={team.teamId} name={team.name} flag={team.flag} />
         ))}
       </ImageBackground>
     </View>

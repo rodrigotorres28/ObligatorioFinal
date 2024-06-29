@@ -3,55 +3,46 @@ import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import GroupPreview from '../components/GroupPreview';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types/MainStackTypes';
-
-const groupsOfTeams = [
-  {
-    id: "1",
-    groupName: 'GROUP A',
-    teams: [
-      {id: '1', name: 'Argentina', flag: require('../assets/flags/ar.png')},
-      {id: '2', name: 'Peru', flag: require('../assets/flags/pe.png')},
-      {id: '3', name: 'Chile', flag: require('../assets/flags/cl.png')},
-      {id: '4', name: 'Canada', flag: require('../assets/flags/ca.png')}
-    ]
-  },
-  {
-    id: "2",
-    groupName: 'GROUP B',
-    teams: [
-      {id: '5', name: 'Mexico', flag: require('../assets/flags/mx.png')},
-      {id: '6', name: 'Ecuador', flag: require('../assets/flags/ec.png')},
-      {id: '7', name: 'Venezuela', flag: require('../assets/flags/ve.png')},
-      {id: '8', name: 'Jamaica', flag: require('../assets/flags/jm.png')}
-    ]
-  },
-  {
-    id: "3",
-    groupName: 'GROUP C',
-    teams: [
-      {id: '9', name: 'USA', flag: require('../assets/flags/us.png')},
-      {id: '10', name: 'Uruguay', flag: require('../assets/flags/uy.png')},
-      {id: '11', name: 'Panama', flag: require('../assets/flags/pa.png')},
-      {id: '12', name: 'Bolivia', flag: require('../assets/flags/bo.png')}
-    ]
-  },
-  {
-    id: "4",
-    groupName: 'GROUP D',
-    teams: [
-      {id: '13', name: 'Brazil', flag: require('../assets/flags/br.png')},
-      {id: '14', name: 'Colombia', flag: require('../assets/flags/co.png')},
-      {id: '15', name: 'Paraguay', flag: require('../assets/flags/py.png')},
-      {id: '16', name: 'Costa Rica', flag: require('../assets/flags/cr.png')}
-    ]
-  }
-];
+import { useSelector } from 'react-redux';
+import { RootState } from '../state/store';
 
 type AllGroupsPageProps = NativeStackScreenProps<StackParamList, "AllGroupsPage">
 
 const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
 
+  const groups = useSelector((state: RootState) => state.groups);
+  const teams = useSelector((state: RootState) => state.teams);
+
+  const teamsIdsInGroupA = groups["groupA"].teams;
+  const teamsIdsInGroupB = groups["groupB"].teams;
+  const teamsIdsInGroupC = groups["groupC"].teams;
+  const teamsIdsInGroupD = groups["groupD"].teams;
+
+  const groupsOfTeams = [
+    {
+      id: groups["groupA"].groupId.toString(),
+      displayName: groups["groupA"].displayName,
+      teams: teamsIdsInGroupA.map(teamId => teams[teamId])
+    },
+    {
+      id: groups["groupB"].groupId.toString(),
+      displayName: groups["groupB"].displayName,
+      teams: teamsIdsInGroupB.map(teamId => teams[teamId])
+    },
+    {
+      id: groups["groupC"].groupId.toString(),
+      displayName: groups["groupC"].displayName,
+      teams: teamsIdsInGroupC.map(teamId => teams[teamId])
+    },
+    {
+      id: groups["groupD"].groupId.toString(),
+      displayName: groups["groupD"].displayName,
+      teams: teamsIdsInGroupD.map(teamId => teams[teamId])
+    }
+  ];
+
   const navigateToGroupPage = (groupId: string) => {
+
     switch (groupId) {
       case "1":
         navigation.navigate('GroupPage', { groupName: 'groupA' });
@@ -74,7 +65,7 @@ const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
         data={groupsOfTeams}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigateToGroupPage(item.id)}>
-            <GroupPreview name={item.groupName} teams={item.teams} />
+            <GroupPreview name={item.displayName} teams={item.teams} />
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id}

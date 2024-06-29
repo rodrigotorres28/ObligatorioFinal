@@ -1,26 +1,46 @@
 import * as React from "react";
 import { View, Text, Image, StyleSheet, FlatList } from "react-native";
-import { TeamInGroup } from "../types/TeamInGroup";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import { Standings } from "../types/Standings";
 
 interface ScoreTableProps {
-  teams: TeamInGroup[];
+  standings: Standings[];
 }
 
-const ScoreTable = ({ teams }: ScoreTableProps) => {
-  const sortedTeams = teams.sort((a, b) => b.points - a.points);
+const ScoreTable: React.FC<ScoreTableProps> = ({ standings }) => {
+  const teams = useSelector((state: RootState) => state.teams);
 
-  const renderItem = ({ item }: { item: TeamInGroup }) => (
-    <View style={styles.row}>
-      <Image source={item.flag} style={styles.flag} resizeMode="contain"/>
-      <Text style={styles.cellName}>{item.name}</Text>
-      <Text style={styles.cell}>{item.wins}</Text>
-      <Text style={styles.cell}>{item.ties}</Text>
-      <Text style={styles.cell}>{item.goalsFor}</Text>
-      <Text style={styles.cell}>{item.goalsAgainst}</Text>
-      <Text style={styles.cell}>{item.goalDifference}</Text>
-      <Text style={styles.cell}>{item.points}</Text>
-    </View>
-  );
+  const renderItem = ({ item }: { item: Standings }) => {
+    const team = teams[item.teamId];
+
+    if (!team) {
+      return null;
+    }
+
+    return (
+      <View style={styles.row}>
+        <Image source={team.flag} style={styles.flag} resizeMode="contain" />
+        <Text style={styles.cellName}>{team.name}</Text>
+        <Text style={styles.cell}>{item.wins}</Text>
+        <Text style={styles.cell}>{item.ties}</Text>
+        <Text style={styles.cell}>{item.goalsFor}</Text>
+        <Text style={styles.cell}>{item.goalsAgainst}</Text>
+        <Text style={styles.cell}>{item.goalDifference}</Text>
+        <Text style={styles.cell}>{item.points}</Text>
+      </View>
+    );
+  };
+
+  const sortedStandings = standings.sort((a, b) => {
+    if (b.points !== a.points) {
+      return b.points - a.points;
+    } else if (b.goalDifference !== a.goalDifference) {
+      return b.goalDifference - a.goalDifference;
+    } else {
+      return b.goalsFor - a.goalsFor;
+    }
+  });
 
   return (
     <View style={styles.container}>
@@ -35,7 +55,7 @@ const ScoreTable = ({ teams }: ScoreTableProps) => {
         <Text style={styles.headerCell}>PTS</Text>
       </View>
       <FlatList
-        data={sortedTeams}
+        data={sortedStandings}
         renderItem={renderItem}
         keyExtractor={(item) => item.teamId.toString()}
       />
