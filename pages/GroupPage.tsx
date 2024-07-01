@@ -10,10 +10,12 @@ import { RootState } from "../state/store";
 import { updateMatch } from "../state/GroupsSlice";
 import { useState } from "react";
 import { Match } from "../types/Match";
+import LargeHorizontalButton from "../components/LargeHorizontalButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type GroupPageProps = NativeStackScreenProps<StackParamList, "GroupPage">;
 
-const GroupPage = ({ route }: GroupPageProps) => {
+const GroupPage = ({ navigation, route }: GroupPageProps) => {
   const dispatch = useDispatch();
   const { groupName } = route.params;
   const group = useSelector((state: RootState) => state.groups[groupName]);
@@ -35,7 +37,7 @@ const GroupPage = ({ route }: GroupPageProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScoreTable standings={standingsArray} />
       <View style={styles.matches}>
         <Text style={styles.title}>MATCHES</Text>
@@ -44,6 +46,14 @@ const GroupPage = ({ route }: GroupPageProps) => {
             <MatchCard key={index} match={match} />
           </TouchableOpacity>
         ))}
+      </View>
+      <View style={styles.goBackButton}>
+        <LargeHorizontalButton
+          buttonColor="#13c2cf"
+          text="Go Back"
+          textColor="white"
+          onPress={navigation.goBack}
+        />
       </View>
       <Modal
         animationType="fade"
@@ -70,7 +80,7 @@ const GroupPage = ({ route }: GroupPageProps) => {
           )}
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -95,5 +105,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  goBackButton: {
+    width: 200,
+    alignSelf: "center",
+    marginBottom: 35,
   },
 });

@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from '../types/MainStackTypes';
 import { useSelector } from 'react-redux';
 import { RootState } from '../state/store';
+import LargeHorizontalButton from '../components/LargeHorizontalButton';
 
 type AllGroupsPageProps = NativeStackScreenProps<StackParamList, "AllGroupsPage">
 
@@ -73,6 +74,9 @@ const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
         columnWrapperStyle={styles.groupsRow}
         contentContainerStyle={styles.flatListContentContainer}
       />
+      <View style={styles.bracketButton}>
+        <LargeHorizontalButton buttonColor="#044fc7" text='Bracket Stage' textColor="white" onPress={() => navigation.navigate("BracketPage")}/>
+      </View>
     </View>
   );
 };
@@ -91,4 +95,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
   },
+  bracketButton: {
+    marginBottom: 30,
+  }
 });

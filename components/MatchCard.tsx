@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 12,
         borderColor: "black",
-        backgroundColor: "#0565e3",
+        backgroundColor: "#044fc7",
         marginVertical: 5,
     },
     flags: {

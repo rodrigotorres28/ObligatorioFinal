@@ -4,6 +4,7 @@ import * as React from "react";
 import { MainStack } from "../types/MainStackTypes";
 import AllGroupsPage from "../pages/AllGroupsPage";
 import GroupPage from "../pages/GroupPage";
+import BracketPage from "../pages/BracketPage";
 
 interface MainStackNavigationProps {}
 
@@ -19,7 +20,12 @@ const MainStackNavigation = (props: MainStackNavigationProps) => {
         <MainStack.Screen
           name="GroupPage"
           component={GroupPage}
-          options={{headerTitle: ""}}
+          options={{headerShown: false}}
+        />
+        <MainStack.Screen
+          name="BracketPage"
+          component={BracketPage}
+          options={{headerShown: false}}
         />
       </MainStack.Navigator>
     </NavigationContainer>
