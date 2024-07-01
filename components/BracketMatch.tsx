@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import TeamInBracket from './TeamInBracket';
 
 interface BracketMatchProps {}
 
 const BracketMatch = (props: BracketMatchProps) => {
   return (
     <View style={styles.container}>
+        <TeamInBracket flag={require("../assets/flags/uy.png")} teamName='Uruguay' goals={5} toBeDecidedText='Group A 1st'/>
+        <View style={styles.divider}/>
+        <TeamInBracket toBeDecidedText='Group B 2nd (TBD)'/>
     </View>
   );
 };
@@ -22,5 +26,13 @@ const styles = StyleSheet.create({
     backgroundColor: "skyblue",
     borderColor: "black",
     borderWidth: 2,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "black",
+    marginHorizontal: 15,
+    alignSelf: "stretch"
   }
 });

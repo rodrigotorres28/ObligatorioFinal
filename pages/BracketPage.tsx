@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   },
   goBackButton: {
     width: 200,
+    alignSelf: "center",
   },
   bracket: {
     flexDirection: "row",
