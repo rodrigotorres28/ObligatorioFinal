@@ -1,15 +1,29 @@
-import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
-import TeamInBracket from './TeamInBracket';
+import * as React from "react";
+import { View, StyleSheet } from "react-native";
+import BracketTeam from "./BracketTeam";
+import { TeamInBracket } from "../types/TeamInBracket";
 
-interface BracketMatchProps {}
+interface BracketMatchProps {
+  bracketTeam1: TeamInBracket;
+  bracketTeam2: TeamInBracket;
+}
 
-const BracketMatch = (props: BracketMatchProps) => {
+const BracketMatch = ({ bracketTeam1, bracketTeam2 }: BracketMatchProps) => {
   return (
     <View style={styles.container}>
-        <TeamInBracket flag={require("../assets/flags/uy.png")} teamName='Uruguay' goals={5} toBeDecidedText='Group A 1st'/>
-        <View style={styles.divider}/>
-        <TeamInBracket toBeDecidedText='Group B 2nd (TBD)'/>
+      <BracketTeam
+        flag={bracketTeam1.flag}
+        teamName={bracketTeam1.name}
+        goals={bracketTeam1.goals}
+        toBeDecidedText={bracketTeam1.toBeDecidedText}
+      />
+      <View style={styles.divider} />
+      <BracketTeam
+        flag={bracketTeam2.flag}
+        teamName={bracketTeam2.name}
+        goals={bracketTeam2.goals}
+        toBeDecidedText={bracketTeam2.toBeDecidedText}
+      />
     </View>
   );
 };
@@ -33,6 +47,6 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "black",
     marginHorizontal: 15,
-    alignSelf: "stretch"
-  }
+    alignSelf: "stretch",
+  },
 });

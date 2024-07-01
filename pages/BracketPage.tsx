@@ -8,6 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import LargeHorizontalButton from "../components/LargeHorizontalButton";
 import BracketMatch from "../components/BracketMatch";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { TeamInBracket } from "../types/TeamInBracket";
 
 
 type BracketPageProps = NativeStackScreenProps<StackParamList, "BracketPage">;
@@ -50,14 +51,12 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
     };
   }, []);
 
-  //console.log(centers);
-
   const renderLines = () => {
     return Object.entries(centers).map(([key, center]) => {
       if (key.includes("match")) {
         return (
           <View
-            key={`horizontalLine-${key}`} // Unique key for horizontal lines
+            key={`horizontalLine-${key}`}
             style={[
               styles.line,
               {
@@ -120,7 +119,8 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
     });
   };
   
-  
+  const testTeam1 : TeamInBracket = {flag: require("../assets/flags/uy.png"), name: "Uruguay", goals: 5, toBeDecidedText: "Group A 1st"}
+  const testTeam2 : TeamInBracket = {toBeDecidedText: "Group B 2nd"}
 
   return (
     <SafeAreaView style={styles.container}>
@@ -128,29 +128,29 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
         <View style={styles.bracket}>
           <View>
             <View ref={ref => matchRefs.current["match1"] = ref} onLayout={() => handleLayout("match1")}>
-              <BracketMatch />
+              <BracketMatch bracketTeam1={testTeam1} bracketTeam2={testTeam2}/>
             </View>
             <View ref={ref => matchRefs.current["match2"] = ref} onLayout={() => handleLayout("match2")}>
-              <BracketMatch />
+              <BracketMatch bracketTeam1={testTeam1} bracketTeam2={testTeam2}/>
             </View>
             <View ref={ref => matchRefs.current["match3"] = ref} onLayout={() => handleLayout("match3")}>
-              <BracketMatch />
+              <BracketMatch bracketTeam1={testTeam1} bracketTeam2={testTeam2}/>
             </View>
             <View ref={ref => matchRefs.current["match4"] = ref} onLayout={() => handleLayout("match4")}>
-              <BracketMatch />
+              <BracketMatch bracketTeam1={testTeam1} bracketTeam2={testTeam2}/>
             </View>
           </View>
           <View style={styles.semiFinal}>
             <View ref={ref => matchRefs.current["semifinal1"] = ref} onLayout={() => handleLayout("semifinal1")}>
-              <BracketMatch />
+              <BracketMatch bracketTeam1={testTeam1} bracketTeam2={testTeam2}/>
             </View>
             <View ref={ref => matchRefs.current["semifinal2"] = ref} onLayout={() => handleLayout("semifinal2")}>
-              <BracketMatch />
+              <BracketMatch bracketTeam1={testTeam1} bracketTeam2={testTeam2}/>
             </View>
           </View>
           <View style={styles.final}>
             <View ref={ref => matchRefs.current["final"] = ref} onLayout={() => handleLayout("final")}>
-              <BracketMatch />
+              <BracketMatch bracketTeam1={testTeam1} bracketTeam2={testTeam2}/>
             </View>
           </View>
         </View>
@@ -177,11 +177,11 @@ const styles = StyleSheet.create({
   goBackButton: {
     width: 200,
     alignSelf: "center",
+    marginBottom: 18,
   },
   bracket: {
     flexDirection: "row",
   },
-  bestOf8: {},
   semiFinal: {
     justifyContent: "space-around",
   },

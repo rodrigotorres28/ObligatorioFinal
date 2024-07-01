@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, ImageSourcePropType } from 'react-native';
 
-interface TeamInBracketProps {
+interface BracketTeamProps {
     flag?: ImageSourcePropType;
     teamName?: string;
     goals?: number;
     toBeDecidedText: string;
 }
 
-const TeamInBracket = ({ flag, teamName, goals, toBeDecidedText }: TeamInBracketProps) => {
+const BracketTeam = ({ flag, teamName, goals, toBeDecidedText }: BracketTeamProps) => {
     if (flag && teamName && goals){
       return (
         <View style={styles.container}>
@@ -41,7 +41,7 @@ const TeamInBracket = ({ flag, teamName, goals, toBeDecidedText }: TeamInBracket
     }
 };
 
-export default TeamInBracket;
+export default BracketTeam;
 
 const styles = StyleSheet.create({
   container: {
