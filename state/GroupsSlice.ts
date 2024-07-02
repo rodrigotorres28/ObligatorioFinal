@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Standings } from '../types/Standings';
 import { Group } from '../types/Group';
 
-
 interface GroupsState {
   [groupName: string]: Group;
 }

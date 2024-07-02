@@ -21,7 +21,7 @@ const BracketTeam = ({ flag, teamName, goals, toBeDecidedText }: BracketTeamProp
           </View>
           <View style={styles.goalsContainer}>
             <View style={styles.verticalDivider} />
-            <Text style={styles.text}>{goals}</Text>
+            <Text style={styles.text}>{goals >= 0 ? goals : ""}</Text>
           </View>
         </View>
       );
