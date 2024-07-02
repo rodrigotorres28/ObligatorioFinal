@@ -60,6 +60,19 @@ const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
     }
   };
 
+  const areAllMatchesPlayed = () => {
+    for (const groupKey in groups) {
+      const group = groups[groupKey];
+      for (const matchKey in group.matches) {
+        const match = group.matches[matchKey];
+        if (match.team1Goals === -1 || match.team2Goals === -1) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -75,7 +88,7 @@ const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
         contentContainerStyle={styles.flatListContentContainer}
       />
       <View style={styles.bracketButton}>
-        <LargeHorizontalButton buttonColor="#044fc7" text='Bracket Stage' textColor="white" onPress={() => navigation.navigate("BracketPage")}/>
+        <LargeHorizontalButton buttonColor="#044fc7" text='Bracket Stage' textColor="white" disabled={areAllMatchesPlayed()} disabledColor={"grey"} onPress={() => navigation.navigate("BracketPage")}/>
       </View>
     </View>
   );

@@ -16,7 +16,7 @@ interface BracketState {
 const initialTeam: TeamInBracket = {
   name: undefined,
   flag: undefined,
-  goals: undefined,
+  goals: -1,
   toBeDecidedText: "To be decided"
 };
 

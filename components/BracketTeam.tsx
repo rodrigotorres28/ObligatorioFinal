@@ -9,7 +9,7 @@ interface BracketTeamProps {
 }
 
 const BracketTeam = ({ flag, teamName, goals, toBeDecidedText }: BracketTeamProps) => {
-    if (flag && teamName && goals){
+    if (flag && teamName && goals !== undefined){
       return (
         <View style={styles.container}>
           <View style={styles.teamInfo}>
