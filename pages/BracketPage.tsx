@@ -413,6 +413,7 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
       dispatch(updateBracket(newBracketState));
     };
     updateBracketData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups, teams]);
 
   const renderLines = () => {
