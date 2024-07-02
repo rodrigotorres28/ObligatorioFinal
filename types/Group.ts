@@ -4,7 +4,7 @@ import { Standings } from "./Standings";
 export interface Group {
   groupId: number;
   displayName: string;
-  teams: number[],
+  teams: number[];
   stats: { [teamId: number]: Standings };
   matches: { [matchName: string]: Match };
 }

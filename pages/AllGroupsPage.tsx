@@ -1,16 +1,18 @@
-import * as React from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import GroupPreview from '../components/GroupPreview';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackParamList } from '../types/MainStackTypes';
-import { useSelector } from 'react-redux';
-import { RootState } from '../state/store';
-import LargeHorizontalButton from '../components/LargeHorizontalButton';
+import * as React from "react";
+import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import GroupPreview from "../components/GroupPreview";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StackParamList } from "../types/MainStackTypes";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import LargeHorizontalButton from "../components/LargeHorizontalButton";
 
-type AllGroupsPageProps = NativeStackScreenProps<StackParamList, "AllGroupsPage">
+type AllGroupsPageProps = NativeStackScreenProps<
+  StackParamList,
+  "AllGroupsPage"
+>;
 
-const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
-
+const AllGroupsPage = ({ navigation }: AllGroupsPageProps) => {
   const groups = useSelector((state: RootState) => state.groups);
   const teams = useSelector((state: RootState) => state.teams);
 
@@ -23,39 +25,38 @@ const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
     {
       id: groups["groupA"].groupId.toString(),
       displayName: groups["groupA"].displayName,
-      teams: teamsIdsInGroupA.map(teamId => teams[teamId])
+      teams: teamsIdsInGroupA.map((teamId) => teams[teamId]),
     },
     {
       id: groups["groupB"].groupId.toString(),
       displayName: groups["groupB"].displayName,
-      teams: teamsIdsInGroupB.map(teamId => teams[teamId])
+      teams: teamsIdsInGroupB.map((teamId) => teams[teamId]),
     },
     {
       id: groups["groupC"].groupId.toString(),
       displayName: groups["groupC"].displayName,
-      teams: teamsIdsInGroupC.map(teamId => teams[teamId])
+      teams: teamsIdsInGroupC.map((teamId) => teams[teamId]),
     },
     {
       id: groups["groupD"].groupId.toString(),
       displayName: groups["groupD"].displayName,
-      teams: teamsIdsInGroupD.map(teamId => teams[teamId])
-    }
+      teams: teamsIdsInGroupD.map((teamId) => teams[teamId]),
+    },
   ];
 
   const navigateToGroupPage = (groupId: string) => {
-
     switch (groupId) {
       case "1":
-        navigation.navigate('GroupPage', { groupName: 'groupA' });
+        navigation.navigate("GroupPage", { groupName: "groupA" });
         break;
       case "2":
-        navigation.navigate('GroupPage', { groupName: 'groupB' });
+        navigation.navigate("GroupPage", { groupName: "groupB" });
         break;
       case "3":
-        navigation.navigate('GroupPage', { groupName: 'groupC' });
+        navigation.navigate("GroupPage", { groupName: "groupC" });
         break;
       case "4":
-        navigation.navigate('GroupPage', { groupName: 'groupD' });
+        navigation.navigate("GroupPage", { groupName: "groupD" });
         break;
     }
   };
@@ -82,13 +83,20 @@ const AllGroupsPage = ({navigation} : AllGroupsPageProps) => {
             <GroupPreview name={item.displayName} teams={item.teams} />
           </TouchableOpacity>
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         numColumns={2}
         columnWrapperStyle={styles.groupsRow}
         contentContainerStyle={styles.flatListContentContainer}
       />
       <View style={styles.bracketButton}>
-        <LargeHorizontalButton buttonColor="#044fc7" text='Bracket Stage' textColor="white" disabled={areAllMatchesPlayed()} disabledColor={"grey"} onPress={() => navigation.navigate("BracketPage")}/>
+        <LargeHorizontalButton
+          buttonColor="#044fc7"
+          text="Bracket Stage"
+          textColor="white"
+          disabled={areAllMatchesPlayed()}
+          disabledColor={"grey"}
+          onPress={() => navigation.navigate("BracketPage")}
+        />
       </View>
     </View>
   );
@@ -101,14 +109,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   groupsRow: {
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     marginVertical: 20,
   },
   flatListContentContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   bracketButton: {
     marginBottom: 30,
-  }
+  },
 });

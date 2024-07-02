@@ -1,19 +1,21 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import * as React from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ImageSourcePropType,
+} from "react-native";
 
 interface TeamGroupItemProps {
-    name: string;
-    flag: ImageSourcePropType;
+  name: string;
+  flag: ImageSourcePropType;
 }
 
-const TeamGroupItem = ({name, flag}: TeamGroupItemProps) => {
+const TeamGroupItem = ({ name, flag }: TeamGroupItemProps) => {
   return (
     <View style={styles.container}>
-      <Image
-        source={flag}
-        style={styles.flagImage}
-        resizeMode='contain'
-      />
+      <Image source={flag} style={styles.flagImage} resizeMode="contain" />
       <Text style={styles.teamName}>{name}</Text>
     </View>
   );

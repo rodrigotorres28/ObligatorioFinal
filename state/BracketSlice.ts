@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TeamInBracket } from '../types/TeamInBracket';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TeamInBracket } from "../types/TeamInBracket";
 
 interface BracketMatch {
   matchName: string;
@@ -17,41 +17,53 @@ const initialTeam: TeamInBracket = {
   name: undefined,
   flag: undefined,
   goals: -1,
-  toBeDecidedText: "To be decided"
+  toBeDecidedText: "To be decided",
 };
 
 const initialState: BracketState = {
   quarterFinals: {
     match1: {
-      matchName: 'match1',
+      matchName: "match1",
       team1: { ...initialTeam, toBeDecidedText: "Group A 1st (TBD)" },
-      team2: { ...initialTeam, toBeDecidedText: "Group B 2nd (TBD)" }
+      team2: { ...initialTeam, toBeDecidedText: "Group B 2nd (TBD)" },
     },
     match2: {
-      matchName: 'match2',
+      matchName: "match2",
       team1: { ...initialTeam, toBeDecidedText: "Group B 1st (TBD)" },
-      team2: { ...initialTeam, toBeDecidedText: "Group A 2nd (TBD)" }
+      team2: { ...initialTeam, toBeDecidedText: "Group A 2nd (TBD)" },
     },
     match3: {
-      matchName: 'match3',
+      matchName: "match3",
       team1: { ...initialTeam, toBeDecidedText: "Group C 1st (TBD)" },
-      team2: { ...initialTeam, toBeDecidedText: "Group D 2nd (TBD)" }
+      team2: { ...initialTeam, toBeDecidedText: "Group D 2nd (TBD)" },
     },
     match4: {
-      matchName: 'match4',
+      matchName: "match4",
       team1: { ...initialTeam, toBeDecidedText: "Group D 1st (TBD)" },
-      team2: { ...initialTeam, toBeDecidedText: "Group C 2nd (TBD)" }
+      team2: { ...initialTeam, toBeDecidedText: "Group C 2nd (TBD)" },
     },
   },
   semiFinals: {
-    semifinal1: { matchName: 'semifinal1', team1: { ...initialTeam }, team2: { ...initialTeam } },
-    semifinal2: { matchName: 'semifinal2', team1: { ...initialTeam }, team2: { ...initialTeam } },
+    semifinal1: {
+      matchName: "semifinal1",
+      team1: { ...initialTeam },
+      team2: { ...initialTeam },
+    },
+    semifinal2: {
+      matchName: "semifinal2",
+      team1: { ...initialTeam },
+      team2: { ...initialTeam },
+    },
   },
-  final: { matchName: 'final', team1: { ...initialTeam }, team2: { ...initialTeam } },
+  final: {
+    matchName: "final",
+    team1: { ...initialTeam },
+    team2: { ...initialTeam },
+  },
 };
 
 const bracketSlice = createSlice({
-  name: 'bracket',
+  name: "bracket",
   initialState,
   reducers: {
     updateBracket: (state, action: PayloadAction<BracketState>) => {
@@ -59,7 +71,11 @@ const bracketSlice = createSlice({
     },
     addQuarterFinalTeam(
       state,
-      action: PayloadAction<{ matchName: string; team: TeamInBracket; isTopTeam: boolean }>
+      action: PayloadAction<{
+        matchName: string;
+        team: TeamInBracket;
+        isTopTeam: boolean;
+      }>
     ) {
       const { matchName, team, isTopTeam } = action.payload;
       const match = state.quarterFinals[matchName];
@@ -71,7 +87,11 @@ const bracketSlice = createSlice({
     },
     addSemiFinalTeam(
       state,
-      action: PayloadAction<{ matchName: string; team: TeamInBracket; isTopTeam: boolean }>
+      action: PayloadAction<{
+        matchName: string;
+        team: TeamInBracket;
+        isTopTeam: boolean;
+      }>
     ) {
       const { matchName, team, isTopTeam } = action.payload;
       const match = state.semiFinals[matchName];
@@ -96,6 +116,10 @@ const bracketSlice = createSlice({
   },
 });
 
-export const { updateBracket, addQuarterFinalTeam, addSemiFinalTeam, addFinalTeam } =
-  bracketSlice.actions;
+export const {
+  updateBracket,
+  addQuarterFinalTeam,
+  addSemiFinalTeam,
+  addFinalTeam,
+} = bracketSlice.actions;
 export default bracketSlice.reducer;

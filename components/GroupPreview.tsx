@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, ImageBackground } from 'react-native';
-import TeamGroupItem from './TeamGroupItem';
-import { Team } from '../types/Team';
+import * as React from "react";
+import { Text, View, StyleSheet, ImageBackground } from "react-native";
+import TeamGroupItem from "./TeamGroupItem";
+import { Team } from "../types/Team";
 
 interface GroupPreviewProps {
   name: string;
   teams: Team[];
 }
 
-const GroupPreview = ({name, teams}: GroupPreviewProps) => {
+const GroupPreview = ({ name, teams }: GroupPreviewProps) => {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     height: 270,
     width: 170,
     borderRadius: 15,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   image: {
     flex: 1,
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     color: "white",
     padding: 10,
     fontSize: 24,
-    fontWeight: '600',
+    fontWeight: "600",
     textShadowColor: "black",
-    textShadowOffset: {height: 4, width: 0},
+    textShadowOffset: { height: 4, width: 0 },
     textShadowRadius: 10,
   },
 });

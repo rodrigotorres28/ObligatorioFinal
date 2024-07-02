@@ -1,44 +1,51 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, Image, ImageSourcePropType } from 'react-native';
+import * as React from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ImageSourcePropType,
+} from "react-native";
 
 interface BracketTeamProps {
-    flag?: ImageSourcePropType;
-    teamName?: string;
-    goals?: number;
-    toBeDecidedText: string;
+  flag?: ImageSourcePropType;
+  teamName?: string;
+  goals?: number;
+  toBeDecidedText: string;
 }
 
-const BracketTeam = ({ flag, teamName, goals, toBeDecidedText }: BracketTeamProps) => {
-    if (flag && teamName && goals !== undefined){
-      return (
-        <View style={styles.container}>
-          <View style={styles.teamInfo}>
-            <Image
-              style={styles.flagImage}
-              source={flag}
-            />
-            <Text style={styles.text}>{teamName}</Text>
-          </View>
-          <View style={styles.goalsContainer}>
-            <View style={styles.verticalDivider} />
-            <Text style={styles.text}>{goals >= 0 ? goals : ""}</Text>
-          </View>
+const BracketTeam = ({
+  flag,
+  teamName,
+  goals,
+  toBeDecidedText,
+}: BracketTeamProps) => {
+  if (flag && teamName && goals !== undefined) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.teamInfo}>
+          <Image style={styles.flagImage} source={flag} />
+          <Text style={styles.text}>{teamName}</Text>
         </View>
-      );
-    }
-    else {
-        return (
-          <View style={styles.container}>
-            <View style={styles.teamInfo}>
-              <Text style={styles.text}>{toBeDecidedText}</Text>
-            </View>
-            <View style={styles.goalsContainer}>
-              <View style={styles.verticalDivider} />
-              <Text style={styles.text}> </Text>
-            </View>
-          </View>
-        );
-    }
+        <View style={styles.goalsContainer}>
+          <View style={styles.verticalDivider} />
+          <Text style={styles.text}>{goals >= 0 ? goals : ""}</Text>
+        </View>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <View style={styles.teamInfo}>
+          <Text style={styles.text}>{toBeDecidedText}</Text>
+        </View>
+        <View style={styles.goalsContainer}>
+          <View style={styles.verticalDivider} />
+          <Text style={styles.text}> </Text>
+        </View>
+      </View>
+    );
+  }
 };
 
 export default BracketTeam;

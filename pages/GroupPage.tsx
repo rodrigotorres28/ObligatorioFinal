@@ -27,7 +27,11 @@ const GroupPage = ({ navigation, route }: GroupPageProps) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMatch, setSelectedMatchName] = useState<Match | null>(null);
 
-  const handleUpdateMatch = (matchName: string, team1Goals: number, team2Goals: number) => {
+  const handleUpdateMatch = (
+    matchName: string,
+    team1Goals: number,
+    team2Goals: number
+  ) => {
     dispatch(updateMatch({ groupName, matchName, team1Goals, team2Goals }));
   };
 

@@ -20,7 +20,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { Group } from "../types/Group";
 import { Standings } from "../types/Standings";
-import { addFinalTeam, addQuarterFinalTeam, addSemiFinalTeam, updateBracket } from "../state/BracketSlice";
+import {
+  addFinalTeam,
+  addQuarterFinalTeam,
+  addSemiFinalTeam,
+  updateBracket,
+} from "../state/BracketSlice";
 import { TeamInBracket } from "../types/TeamInBracket";
 import MatchPrediction from "../components/MatchPrediction";
 
@@ -93,32 +98,36 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
   };
 
   const getMatchType = (matchName: string) => {
-    if (matchName.startsWith('match')) return 'quarterFinal';
-    if (matchName.startsWith('semifinal')) return 'semiFinal';
-    if (matchName.startsWith('final')) return 'final';
+    if (matchName.startsWith("match")) return "quarterFinal";
+    if (matchName.startsWith("semifinal")) return "semiFinal";
+    if (matchName.startsWith("final")) return "final";
     return null;
   };
-  
+
   const getMatchTeams = (matchName: string) => {
     const matchType = getMatchType(matchName);
-    if (matchType === 'quarterFinal') {
+    if (matchType === "quarterFinal") {
       return bracketState.quarterFinals[matchName];
-    } else if (matchType === 'semiFinal') {
+    } else if (matchType === "semiFinal") {
       return bracketState.semiFinals[matchName];
-    } else if (matchType === 'final') {
+    } else if (matchType === "final") {
       return bracketState.final;
     }
     return null;
   };
 
-  const handleUpdateMatch = (selectedMatch: string, team1Goals: number, team2Goals: number) => {
+  const handleUpdateMatch = (
+    selectedMatch: string,
+    team1Goals: number,
+    team2Goals: number
+  ) => {
     const matchTeams = getMatchTeams(selectedMatch);
-    
+
     if (!matchTeams) {
-      console.error('Invalid match selected');
+      console.error("Invalid match selected");
       return;
     }
-  
+
     const team1 = {
       ...matchTeams.team1,
       goals: team1Goals,
@@ -127,134 +136,168 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
       ...matchTeams.team2,
       goals: team2Goals,
     };
-  
-    const isQuarterFinalMatch = selectedMatch.startsWith('match');
-    const isSemiFinalMatch = selectedMatch.startsWith('semifinal');
-  
+
+    const isQuarterFinalMatch = selectedMatch.startsWith("match");
+    const isSemiFinalMatch = selectedMatch.startsWith("semifinal");
+
     if (isQuarterFinalMatch) {
-      dispatch(addQuarterFinalTeam({
-        matchName: selectedMatch,
-        team: team1,
-        isTopTeam: true,
-      }));
-      dispatch(addQuarterFinalTeam({
-        matchName: selectedMatch,
-        team: team2,
-        isTopTeam: false,
-      }));
-  
+      dispatch(
+        addQuarterFinalTeam({
+          matchName: selectedMatch,
+          team: team1,
+          isTopTeam: true,
+        })
+      );
+      dispatch(
+        addQuarterFinalTeam({
+          matchName: selectedMatch,
+          team: team2,
+          isTopTeam: false,
+        })
+      );
+
       if (selectedMatch === "match1") {
         if (team1Goals > team2Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal1",
-            team: { ...team1, goals: -1 },
-            isTopTeam: true,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal1",
+              team: { ...team1, goals: -1 },
+              isTopTeam: true,
+            })
+          );
         }
         if (team2Goals > team1Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal1",
-            team: { ...team2, goals: -1 },
-            isTopTeam: true,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal1",
+              team: { ...team2, goals: -1 },
+              isTopTeam: true,
+            })
+          );
         }
       } else if (selectedMatch === "match2") {
         if (team1Goals > team2Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal1",
-            team: { ...team1, goals: -1 },
-            isTopTeam: false,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal1",
+              team: { ...team1, goals: -1 },
+              isTopTeam: false,
+            })
+          );
         }
         if (team2Goals > team1Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal1",
-            team: { ...team2, goals: -1 },
-            isTopTeam: false,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal1",
+              team: { ...team2, goals: -1 },
+              isTopTeam: false,
+            })
+          );
         }
       } else if (selectedMatch === "match3") {
         if (team1Goals > team2Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal2",
-            team: { ...team1, goals: -1 },
-            isTopTeam: true,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal2",
+              team: { ...team1, goals: -1 },
+              isTopTeam: true,
+            })
+          );
         }
         if (team2Goals > team1Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal2",
-            team: { ...team2, goals: -1 },
-            isTopTeam: true,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal2",
+              team: { ...team2, goals: -1 },
+              isTopTeam: true,
+            })
+          );
         }
       } else if (selectedMatch === "match4") {
         if (team1Goals > team2Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal2",
-            team: { ...team1, goals: -1 },
-            isTopTeam: false,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal2",
+              team: { ...team1, goals: -1 },
+              isTopTeam: false,
+            })
+          );
         }
         if (team2Goals > team1Goals) {
-          dispatch(addSemiFinalTeam({
-            matchName: "semifinal2",
-            team: { ...team2, goals: -1 },
-            isTopTeam: false,
-          }));
+          dispatch(
+            addSemiFinalTeam({
+              matchName: "semifinal2",
+              team: { ...team2, goals: -1 },
+              isTopTeam: false,
+            })
+          );
         }
       }
     } else if (isSemiFinalMatch) {
-      dispatch(addSemiFinalTeam({
-        matchName: selectedMatch,
-        team: team1,
-        isTopTeam: true,
-      }));
-      dispatch(addSemiFinalTeam({
-        matchName: selectedMatch,
-        team: team2,
-        isTopTeam: false,
-      }));
-      if (selectedMatch === "semifinal1"){
+      dispatch(
+        addSemiFinalTeam({
+          matchName: selectedMatch,
+          team: team1,
+          isTopTeam: true,
+        })
+      );
+      dispatch(
+        addSemiFinalTeam({
+          matchName: selectedMatch,
+          team: team2,
+          isTopTeam: false,
+        })
+      );
+      if (selectedMatch === "semifinal1") {
         if (team1Goals > team2Goals) {
-          dispatch(addFinalTeam({
-            team: { ...team1, goals: -1 },
-            isTopTeam: true,
-          }));
+          dispatch(
+            addFinalTeam({
+              team: { ...team1, goals: -1 },
+              isTopTeam: true,
+            })
+          );
         }
         if (team2Goals > team1Goals) {
-          dispatch(addFinalTeam({
-            team: { ...team2, goals: -1 },
-            isTopTeam: true,
-          }));
+          dispatch(
+            addFinalTeam({
+              team: { ...team2, goals: -1 },
+              isTopTeam: true,
+            })
+          );
         }
-      }
-      else if (selectedMatch === "semifinal2"){
+      } else if (selectedMatch === "semifinal2") {
         if (team1Goals > team2Goals) {
-          dispatch(addFinalTeam({
-            team: { ...team1, goals: -1 },
-            isTopTeam: false,
-          }));
+          dispatch(
+            addFinalTeam({
+              team: { ...team1, goals: -1 },
+              isTopTeam: false,
+            })
+          );
         }
         if (team2Goals > team1Goals) {
-          dispatch(addFinalTeam({
-            team: { ...team2, goals: -1 },
-            isTopTeam: false,
-          }));
+          dispatch(
+            addFinalTeam({
+              team: { ...team2, goals: -1 },
+              isTopTeam: false,
+            })
+          );
         }
       }
     } else {
-      dispatch(addFinalTeam({
-        team: team1,
-        isTopTeam: true,
-      }));
-      dispatch(addFinalTeam({
-        team: team2,
-        isTopTeam: false,
-      }));
+      dispatch(
+        addFinalTeam({
+          team: team1,
+          isTopTeam: true,
+        })
+      );
+      dispatch(
+        addFinalTeam({
+          team: team2,
+          isTopTeam: false,
+        })
+      );
     }
   };
-  
 
   const horizontalLineWidth = 245;
   const verticalLineHeightSemifinals = 132;
@@ -634,7 +677,7 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalView}>
-          {selectedMatch && (
+          {selectedMatch &&
             (() => {
               const matchTeams = getMatchTeams(selectedMatch);
               if (matchTeams) {
@@ -652,8 +695,7 @@ const BracketPage = ({ navigation }: BracketPageProps) => {
                 );
               }
               return null;
-            })()
-          )}
+            })()}
           <Pressable
             style={styles.closeButton}
             onPress={() => setModalVisible(false)}
